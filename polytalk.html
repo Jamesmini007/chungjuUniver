@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyTalk 다국어 상담 - CJU-EDELWEIS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="top-header">
+        <div class="container">
+            <div class="logo-section">
+                <img src="img/logo_wave.png" alt="청주대학교">
+            </div>
+            <nav class="top-nav">
+                <a href="#">최미나님 방문을 환영합니다</a>
+                
+                <span class="divider">|</span>
+                <a href="#">MY PAGE</a>
+                <span class="divider">|</span>
+                <a href="#">로그아웃</a>
+                <span class="divider">|</span>
+                <a href="#">사용자 가이드</a>
+                <span class="divider">|</span>
+                <a href="#">Language</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo_edel.png" alt="EDELWEIS">
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">소개</a></li>
+                <li><a href="index.html">MY PAGE</a></li>
+                <li><a href="index.html">COUNSEL/CAIR</a></li>
+                <li><a href="index.html">CJ MOOC</a></li>
+                <li><a href="index.html">OER</a></li>
+                <li><a href="index.html">OCW</a></li>
+                <li><a href="index.html">Q&A</a></li>
+                <li><a href="index.html">대학일자리플러스센터</a></li>
+                <li><a href="index.html">Meta-Life,CJU</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 (배경 이미지 + 4개 박스) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-grid">
+                <!-- 1. 교수 프로필 -->
+                <div class="profile-box">
+                    <div class="profile-bg">
+                        <div class="profile-dept">교직과</div>
+                        <div class="profile-photo">
+                            <img src="img/FileController.jpeg" alt="교수 프로필">
+                        </div>
+                        <div class="profile-name">최미나 <span>교수</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. 상담·지도 관리현황 -->
+                <div class="counsel-box">
+                    <div class="box-header blue">
+                        <h3>상담 · 지도 관리현황</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="counsel-tabs">
+                        <button class="ctab active">전체</button>
+                        <button class="ctab">1학년</button>
+                        <button class="ctab">2학년</button>
+                        <button class="ctab">3학년</button>
+                        <button class="ctab">4학년</button>
+                    </div>
+                    <div class="counsel-items">
+                        <div class="counsel-item">
+                            <span class="label">상담 미실시자</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">상담완료</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">방문예약 상담</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">온라인 답변 요청</span>
+                            <span class="value red">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 달력 -->
+                <div class="calendar-box">
+                    <div class="calendar-controls">
+                        <button class="cal-nav" id="prevMonth">‹</button>
+                        <h3 class="cal-month" id="currentMonth">2025. 11</h3>
+                        <button class="cal-nav" id="nextMonth">›</button>
+                        <button class="cal-menu">☰</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="cal-header">
+                            <div class="cal-day sun">SUN</div>
+                            <div class="cal-day">MON</div>
+                            <div class="cal-day">TUE</div>
+                            <div class="cal-day">WED</div>
+                            <div class="cal-day">THU</div>
+                            <div class="cal-day">FRI</div>
+                            <div class="cal-day sat">SAT</div>
+                        </div>
+                        <div class="cal-body" id="calendarDays"></div>
+                    </div>
+                </div>
+
+                <!-- 4. 공지사항 -->
+                <div class="notice-box">
+                    <div class="box-header blue">
+                        <h3>공지사항</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="notice-items">
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 02분반(조기취업자) 사이버…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 사이버강의 기말고사 시험…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2학기 학과 체험 프로그램…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.13</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025학년도 전공탐색 설명회 안내</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.10</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">[정상복구] 실시간 비대면 학습(w…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.06</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- PolyTalk 다국어 상담 섹션 -->
+            <section class="polytalk-content-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">다국어 <span class="blue-text">상담</span></h2>
+                </div>
+                <div class="polytalk-main-layout">
+                    <!-- 상태 메시지 오버레이 -->
+                    <div class="status-message-overlay" id="statusMessageOverlay" style="display: none;">
+                        <div class="status-message-box">
+                            <div class="status-message-icon">✓</div>
+                            <div class="status-message-text" id="statusMessageText">상담이 종료됩니다</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 왼쪽: 학생 프로필 정보 -->
+                    <div class="student-profile-panel">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <img src="img/학생프로필.png" alt="학생 프로필" class="avatar-image" id="studentAvatar">
+                            </div>
+                            <div class="profile-name-section">
+                                <div class="student-name-row">
+                                    <h3 id="studentNameDisplay">MingWha</h3>
+                                    <span class="country-flag" id="countryFlag"></span>
+                                    <span class="phone-code" id="phoneCode"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-info-cards">
+                            <div class="info-card">
+                                <div class="card-label">학번</div>
+                                <div class="card-value" id="studentIdDisplay">2261029</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="card-label">상담 주제</div>
+                                <div class="card-value" id="learningSubject">한국어 학습</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="card-label">상담 시간</div>
+                                <div class="card-value" id="learningDuration">2시간</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="card-label">전화번호</div>
+                                <div class="card-value" id="studentPhone">010-1234-5678</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="card-label">주 언어</div>
+                                <div class="card-value">
+                                    
+                                    <span id="primaryLanguage">중국어</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <div class="card-label">마지막 상담</div>
+                                <div class="card-value" id="lastLessonDate">2025-03-15</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽: 채팅 영역 -->
+                    <div class="chat-panel">
+                        <div class="chat-header">
+                            <div class="language-select-header">
+                                <label>학생 언어:</label>
+                                <select id="studentLang">
+                                    <option value="ko">한국어</option>
+                                    <option value="en">영어</option>
+                                    <option value="ja">일본어</option>
+                                    <option value="zh" selected>중국어</option>
+                                    <option value="vi">베트남어</option>
+                                </select>
+                            </div>
+                            <div class="header-right">
+                                <div class="translation-status">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">실시간 번역중</span>
+                                </div>
+                                <button class="end-counsel-btn" id="endCounselBtn">상담 종료</button>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:30</div>
+                                    <div class="message-original">老师您好!</div>
+                                    <div class="message-translated">안녕하세요, 선생님!</div>
+                                </div>
+                            </div>
+                            <div class="chat-message professor">
+                                <div class="message-bubble professor">
+                                    <div class="message-time">14:30</div>
+                                    <div class="message-original">안녕하세요! 무엇을 도와드릴까요?</div>
+                                    <div class="message-translated">你好!有什么可以帮你的吗?</div>
+                                </div>
+                            </div>
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:31</div>
+                                    <div class="message-original">我不知道下周的作业应该怎么做。</div>
+                                    <div class="message-translated">다음 주 과제를 어떻게 해야 할지 모르겠어요.</div>
+                                </div>
+                            </div>
+                            <div class="chat-message professor">
+                                <div class="message-bubble professor">
+                                    <div class="message-time">14:31</div>
+                                    <div class="message-original">과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.</div>
+                                    <div class="message-translated">我会详细解释作业。首先让我确认一下作业主题。</div>
+                                </div>
+                            </div>
+                            <div class="chat-message student">
+                                <div class="message-bubble student">
+                                    <div class="message-time">14:32</div>
+                                    <div class="message-original">谢谢!</div>
+                                    <div class="message-translated">감사합니다!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-bottom">
+                            <button class="voice-btn" id="voiceBtn" title="음성 입력">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+                            <input type="text" class="chat-input-main" id="chatInput" placeholder="메시지를 입력하거나 음성 버튼을 누르세요" maxlength="500">
+                            <button class="send-btn-main" id="sendBtn">전송</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- TOP 버튼 -->
+    <button class="top-button" id="topBtn">
+        <div>▲</div>
+        <div>TOP</div>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // 현재 날짜
+        let currentDate = new Date(2025, 10, 1); // 2025년 11월
+
+        // 달력 렌더링
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // 월 표시
+            document.getElementById('currentMonth').textContent = `${year}. ${String(month + 1).padStart(2, '0')}`;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const lastDate = lastDay.getDate();
+            
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            // 이벤트 날짜와 배지
+            const specialDates = {
+                1: { type: 'today', badge: { num: 1, color: 'red' } },
+                2: { type: 'normal', badge: { num: 2, color: 'red' } },
+                4: { type: 'normal', badge: { num: 1, color: 'red' } },
+                11: { type: 'normal', badge: { num: 1, color: 'blue' } },
+                17: { type: 'green', badge: null }
+            };
+            
+            // 빈 칸
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'cal-date empty';
+                calendarDays.appendChild(empty);
+            }
+            
+            // 날짜
+            for (let date = 1; date <= lastDate; date++) {
+                const dateEl = document.createElement('div');
+                dateEl.className = 'cal-date';
+                dateEl.textContent = date;
+                
+                const dayOfWeek = new Date(year, month, date).getDay();
+                if (dayOfWeek === 0) dateEl.classList.add('sun');
+                if (dayOfWeek === 6) dateEl.classList.add('sat');
+                
+                // 특별 날짜 처리
+                if (specialDates[date]) {
+                    const special = specialDates[date];
+                    
+                    if (special.type === 'today') {
+                        dateEl.classList.add('today');
+                    } else if (special.type === 'green') {
+                        dateEl.classList.add('green');
+                    }
+                    
+                    // 배지 추가
+                    if (special.badge) {
+                        const badge = document.createElement('span');
+                        badge.className = 'date-badge';
+                        if (special.badge.color === 'blue') {
+                            badge.classList.add('blue');
+                        }
+                        badge.textContent = special.badge.num;
+                        dateEl.appendChild(badge);
+                    }
+                }
+                
+                calendarDays.appendChild(dateEl);
+            }
+        }
+
+        // 이전/다음 달
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // 탭 전환
+        document.querySelectorAll('.ctab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // TOP 버튼
+        const topBtn = document.getElementById('topBtn');
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                topBtn.style.display = 'flex';
+            } else {
+                topBtn.style.display = 'none';
+            }
+        });
+
+        // 학생 정보 데이터 (실제로는 서버에서 가져와야 함)
+        const countryMap = {
+            '대한민국': { flag: '🇰🇷', code: '+82', lang: '한국어', langFlag: '🇰🇷', langCode: 'ko' },
+            '중국': { flag: '🇨🇳', code: '+86', lang: '简体中文', langFlag: '🇨🇳', langCode: 'zh' },
+            '베트남': { flag: '🇻🇳', code: '+84', lang: 'Tiếng Việt', langFlag: '🇻🇳', langCode: 'vi' },
+            '일본': { flag: '🇯🇵', code: '+81', lang: '日本語', langFlag: '🇯🇵', langCode: 'ja' },
+            '미국': { flag: '🇺🇸', code: '+1', lang: 'English', langFlag: '🇺🇸', langCode: 'en' }
+        };
+        
+        const studentData = {
+            '김민수': { id: '20210101', phone: '010-1234-5678', country: '대한민국' },
+            '이지은': { id: '20220202', phone: '010-2345-6789', country: '대한민국' },
+            '박준호': { id: '20210303', phone: '010-3456-7890', country: '대한민국' },
+            'Li Wei': { id: '20220404', phone: '010-4567-8901', country: '중국' },
+            'Nguyen Van A': { id: '20210505', phone: '010-5678-9012', country: '베트남' }
+        };
+
+        // URL 파라미터에서 학생 정보 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentName = urlParams.get('name') || '-';
+        const studentId = urlParams.get('id') || '-';
+        const studentCountry = urlParams.get('country') || '대한민국';
+        
+        // 학생 정보 표시
+        const studentInfo = studentData[studentName] || { 
+            id: studentId, 
+            phone: '-', 
+            country: studentCountry
+        };
+        
+        const countryInfo = countryMap[studentInfo.country] || countryMap['대한민국'];
+        const student = {
+            ...studentInfo,
+            ...countryInfo
+        };
+        
+        document.getElementById('studentNameDisplay').textContent = studentName;
+        document.getElementById('studentIdDisplay').textContent = student.id;
+        document.getElementById('studentPhone').textContent = student.phone;
+        document.getElementById('countryFlag').textContent = student.flag;
+        document.getElementById('phoneCode').textContent = student.code;
+        document.getElementById('primaryLangFlag').textContent = student.langFlag;
+        document.getElementById('primaryLanguage').textContent = student.lang;
+        
+        // 학생 언어 선택 자동 설정
+        const studentLangSelect = document.getElementById('studentLang');
+        if (studentLangSelect && student.langCode) {
+            studentLangSelect.value = student.langCode;
+        }
+        
+        // 학생 프로필 이미지 설정 (이미 HTML에 설정되어 있으므로 필요시 동적으로 변경 가능)
+        // const studentAvatar = document.getElementById('studentAvatar');
+        // studentAvatar.src = 'img/학생프로필.png';
+        
+        // 현재 시간 표시
+        const now = new Date();
+        const timeString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        
+        
+        // 간단한 번역 시뮬레이션
+        function translateText(text, fromLang, toLang) {
+            if (fromLang === toLang) return null;
+            
+            // 실제로는 번역 API를 사용해야 합니다
+            // 여기서는 간단한 예시만 제공
+            const translations = {
+                '안녕하세요': { en: 'Hello', zh: '你好', ja: 'こんにちは', vi: 'Xin chào' },
+                '감사합니다': { en: 'Thank you', zh: '谢谢', ja: 'ありがとう', vi: 'Cảm ơn' },
+                '네': { en: 'Yes', zh: '是', ja: 'はい', vi: 'Vâng' },
+                '你好': { ko: '안녕하세요', en: 'Hello', ja: 'こんにちは', vi: 'Xin chào' },
+                '谢谢': { ko: '감사합니다', en: 'Thank you', ja: 'ありがとう', vi: 'Cảm ơn' },
+                '老师您好!': { ko: '안녕하세요, 선생님!', en: 'Hello, teacher!', ja: 'こんにちは、先生！', vi: 'Xin chào, thầy giáo!' },
+                '안녕하세요, 선생님!': { zh: '老师您好!', en: 'Hello, teacher!', ja: 'こんにちは、先生！', vi: 'Xin chào, thầy giáo!' },
+                '안녕하세요! 무엇을 도와드릴까요?': { zh: '你好!有什么可以帮你的吗?', en: 'Hello! What can I help you with?', ja: 'こんにちは！何かお手伝いできることはありますか？', vi: 'Xin chào! Tôi có thể giúp gì cho bạn?' },
+                '我不知道下周的作业应该怎么做。': { ko: '다음 주 과제를 어떻게 해야 할지 모르겠어요.', en: 'I don\'t know how to do next week\'s homework.', ja: '来週の宿題をどうすればいいかわかりません。', vi: 'Tôi không biết làm thế nào để làm bài tập tuần tới.' },
+                '다음 주 과제를 어떻게 해야 할지 모르겠어요.': { zh: '我不知道下周的作业应该怎么做。', en: 'I don\'t know how to do next week\'s homework.', ja: '来週の宿題をどうすればいいかわかりません。', vi: 'Tôi không biết làm thế nào để làm bài tập tuần tới.' },
+                '과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.': { zh: '我会详细解释作业。首先让我确认一下作业主题。', en: 'I will explain the homework in detail. Let me first check the assignment topic.', ja: '宿題について詳しく説明します。まず宿題のテーマを確認します。', vi: 'Tôi sẽ giải thích chi tiết về bài tập. Để tôi kiểm tra chủ đề bài tập trước.' },
+                '감사합니다!': { zh: '谢谢!', en: 'Thank you!', ja: 'ありがとうございます！', vi: 'Cảm ơn bạn!' },
+                '谢谢!': { ko: '감사합니다!', en: 'Thank you!', ja: 'ありがとうございます！', vi: 'Cảm ơn bạn!' }
+            };
+            
+            // 실제로는 Google Translate API 등을 사용해야 합니다
+            // 여기서는 간단한 번역 매핑 사용
+            if (translations[text] && translations[text][toLang]) {
+                return translations[text][toLang];
+            }
+            
+            // 기본 번역 표시
+            return `[번역: ${text}]`;
+        }
+        
+        // 채팅 메시지 추가 함수
+        function addChatMessage(text, isProf, translatedText = null) {
+            const chatMessages = document.getElementById('chatMessages');
+            const welcomeMsg = chatMessages.querySelector('.welcome-message');
+            if (welcomeMsg) {
+                welcomeMsg.remove();
+            }
+            
+            const now = new Date();
+            const timeString = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isProf ? 'professor' : 'student'}`;
+            
+            let messageHTML = `
+                <div class="message-bubble ${isProf ? 'professor' : 'student'}">
+                    <div class="message-time">${timeString}</div>
+                    <div class="message-original">${text}</div>
+            `;
+            
+            if (translatedText) {
+                messageHTML += `<div class="message-translated">${translatedText}</div>`;
+            }
+            
+            messageHTML += `</div>`;
+            messageDiv.innerHTML = messageHTML;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 채팅 전송 (교수자 메시지)
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            const studentLang = document.getElementById('studentLang').value;
+            
+            // 교수자 메시지 (한국어) - 학생 언어로 번역
+            const translated = translateText(message, 'ko', studentLang);
+            addChatMessage(message, true, translated);
+            
+            chatInput.value = '';
+        }
+        
+        if (sendBtn) {
+            sendBtn.addEventListener('click', sendMessage);
+        }
+        
+        if (chatInput) {
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+        
+        // 예시 대화 메시지 로드
+        function loadExampleMessages() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) {
+                console.error('chatMessages 요소를 찾을 수 없습니다.');
+                return;
+            }
+            
+            // 기존 메시지 초기화
+            chatMessages.innerHTML = '';
+            
+            const studentLangSelect = document.getElementById('studentLang');
+            const langCode = studentLangSelect ? studentLangSelect.value : 'zh';
+            
+            console.log('예시 메시지 로드 시작, 언어:', langCode);
+            
+            // 예시 대화 메시지들
+            const exampleMessages = [
+                {
+                    text: langCode === 'zh' ? '老师您好!' : (langCode === 'ko' ? '안녕하세요, 선생님!' : 'Hello, teacher!'),
+                    isProf: false,
+                    time: '14:30'
+                },
+                {
+                    text: '안녕하세요! 무엇을 도와드릴까요?',
+                    isProf: true,
+                    time: '14:30'
+                },
+                {
+                    text: langCode === 'zh' ? '我不知道下周的作业应该怎么做。' : (langCode === 'ko' ? '다음 주 과제를 어떻게 해야 할지 모르겠어요.' : 'I don\'t know how to do next week\'s homework.'),
+                    isProf: false,
+                    time: '14:31'
+                },
+                {
+                    text: '과제에 대해 자세히 설명해드리겠습니다. 먼저 과제 주제를 확인해보겠습니다.',
+                    isProf: true,
+                    time: '14:31'
+                },
+                {
+                    text: langCode === 'zh' ? '谢谢!' : (langCode === 'ko' ? '감사합니다!' : 'Thank you!'),
+                    isProf: false,
+                    time: '14:32'
+                }
+            ];
+            
+            // 메시지들을 순차적으로 추가 (약간의 딜레이를 두고)
+            exampleMessages.forEach((msg, index) => {
+                setTimeout(() => {
+                    try {
+                        const translated = translateText(msg.text, msg.isProf ? 'ko' : langCode, msg.isProf ? langCode : 'ko');
+                        addChatMessageWithTime(msg.text, msg.isProf, translated, msg.time);
+                    } catch (error) {
+                        console.error('메시지 추가 오류:', error);
+                    }
+                }, index * 400);
+            });
+        }
+        
+        // 시간을 지정하여 메시지 추가
+        function addChatMessageWithTime(text, isProf, translatedText = null, timeString) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) {
+                console.error('chatMessages 요소를 찾을 수 없습니다.');
+                return;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isProf ? 'professor' : 'student'}`;
+            
+            let messageHTML = `
+                <div class="message-bubble ${isProf ? 'professor' : 'student'}">
+                    <div class="message-time">${timeString}</div>
+                    <div class="message-original">${text}</div>
+            `;
+            
+            if (translatedText) {
+                messageHTML += `<div class="message-translated">${translatedText}</div>`;
+            }
+            
+            messageHTML += `</div>`;
+            messageDiv.innerHTML = messageHTML;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 상담 종료 버튼
+        const endCounselBtn = document.getElementById('endCounselBtn');
+        const statusMessageOverlay = document.getElementById('statusMessageOverlay');
+        const statusMessageText = document.getElementById('statusMessageText');
+        const translationStatus = document.querySelector('.translation-status');
+        
+        if (endCounselBtn && statusMessageOverlay && statusMessageText) {
+            endCounselBtn.addEventListener('click', () => {
+                console.log('상담 종료 버튼 클릭됨');
+                
+                // 1단계: 상담 종료 메시지
+                statusMessageText.textContent = '상담이 종료됩니다';
+                statusMessageOverlay.style.display = 'flex';
+                
+                // 번역 상태 숨기기
+                if (translationStatus) {
+                    translationStatus.style.opacity = '0.5';
+                }
+                
+                // 2초 후 저장 중 메시지로 변경
+                setTimeout(() => {
+                    if (statusMessageText) {
+                        statusMessageText.textContent = '상담 내용을 저장중입니다..';
+                    }
+                    
+                    // 3초 후 완료 및 화면 정리
+                    setTimeout(() => {
+                        if (statusMessageOverlay) {
+                            statusMessageOverlay.style.display = 'none';
+                        }
+                        if (translationStatus) {
+                            translationStatus.style.opacity = '1';
+                        }
+                        // 여기에 실제 저장 로직 추가 가능
+                    }, 3000);
+                }, 2000);
+            });
+        } else {
+            console.error('상담 종료 버튼 또는 오버레이 요소를 찾을 수 없습니다.');
+        }
+        
+        // 초기화 함수
+        function initializePage() {
+            try {
+                if (typeof renderCalendar === 'function') {
+                    renderCalendar();
+                }
+                
+                const topBtn = document.getElementById('topBtn');
+                if (topBtn) {
+                    topBtn.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('초기화 오류:', error);
+            }
+        }
+        
+        // DOM이 로드되면 실행
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            // 이미 로드된 경우 즉시 실행
+            initializePage();
+        }
+    </script>
+</body>
+</html>
+
