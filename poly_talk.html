@@ -12,7 +12,7 @@
         <div class="lx_app_header sticky">
             <!-- 로고, code, 타이머 -->
             <div class="brand">
-                <h1 class="logo"><a href="poly_talk.html" style="text-decoration: none; display: inline-block;">AI Translator Lecture</a></h1>
+                <h1 class="logo"><a href="poly_talk.html" style="text-decoration: none; display: inline-block;">AI Translator 강의</a></h1>
             </div>
             
             <div class="menu">
@@ -37,6 +37,7 @@
             <div class="app_header">
                 <div class="lang">
                     <span class="lx-icon lx-i-country">🌐</span>
+                    
                     <select id="speakerLanguageCd" name="speakerLanguageCd" style="display: none;">
                         <option value="ko" data-code="ko" selected>한국어</option>
                         <option value="null" data-code="null">전체</option>
@@ -68,12 +69,14 @@
                 <div class="cp_cols_container">
                     <div class="cp_cols" id="cp_cols_1">
                         <div class="cp_title_wrapper">
-                            <p class="cp_title">강의 언어</p>
+                            <p class="cp_title">강의 내용</p>
                             <button class="caption-close-btn" id="captionCloseBtn" onclick="toggleRealtimeCaption()" title="닫기">
                                 <span class="caption-close-icon">×</span>
                             </button>
                         </div>
-                        <div class="cp_cols_content" id="cp_cols_content_1"></div>
+                        <div class="cp_cols_content" id="cp_cols_content_1">
+                            <div class="realtime-text-container"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="cp_cols_container">
@@ -82,7 +85,7 @@
                             <button class="caption-open-btn" id="captionOpenBtn" onclick="toggleRealtimeCaption()" title="열기" style="display: none;">
                                 <span class="caption-open-icon">▶</span>
                             </button>
-                            <p class="cp_title" id="cp_title_2">번역언어</p>
+                            <p class="cp_title" id="cp_title_2">번역 내용</p>
                         </div>
                         <div class="cp_cols_content" id="translatedContentContainer">
                             <!-- 언어별 구분 영역이 동적으로 생성됩니다 -->
@@ -137,13 +140,15 @@
                             <span class="language-icon-emoji">🌐</span>
                         </div>
                         <h3 class="language-popup-title">언어 설정</h3>
-                        <p class="language-popup-subtitle">Choose your preferred languages</p>
+                        <p class="language-popup-subtitle">원하는 언어를 선택하세요</p>
+                        
+                        
                     </div>
                     
                     <div class="language-options">
                         <!-- Input Language Section -->
                         <div class="language-section">
-                            <label for="subjectModal_inputLanguageCd" class="language-section-label">Input Language</label>
+                            <label for="subjectModal_inputLanguageCd" class="language-section-label">입력 언어</label>
                             <div class="language-input-wrapper">
                                 <select id="subjectModal_inputLanguageCd" name="subjectModal_inputLanguageCd" class="language-popup-select">
                                     <option value="ko" data-code="ko" selected>한국어</option>
@@ -157,7 +162,7 @@
                         
                         <!-- Output Languages Section -->
                         <div class="language-section">
-                            <label class="language-section-label">Output Languages</label>
+                            <label class="language-section-label">출력 언어</label>
                             <div class="output-languages-grid">
                                 <label for="subjectModal_speakerLanguageCd_1" class="language-option-card">
                                     <input type="checkbox" name="subjectModal_speakerLanguageCd" value="LANGUAGE::ENGLISH" id="subjectModal_speakerLanguageCd_1" class="language-checkbox" checked>
@@ -216,13 +221,13 @@
                     <span class="language-icon-emoji">🌐</span>
                 </div>
                 <h3 class="language-popup-title">언어 설정</h3>
-                <p class="language-popup-subtitle">Choose your preferred languages</p>
+                <p class="language-popup-subtitle">원하는 언어를 선택하세요</p>
             </div>
             
             <div class="language-options">
                 <!-- Input Language Section -->
                 <div class="language-section">
-                    <label for="popup_inputLanguageCd" class="language-section-label">Input Language</label>
+                    <label for="popup_inputLanguageCd" class="language-section-label">입력 언어</label>
                     <div class="language-input-wrapper">
                         <select id="popup_inputLanguageCd" name="popup_inputLanguageCd" class="language-popup-select">
                             <option value="ko" data-code="ko" selected>한국어</option>
@@ -260,10 +265,27 @@
             </div>
             
             <div class="language-popup-footer">
-                <button class="language-popup-btn language-popup-btn-save" onclick="saveLanguageSettings()">Save</button>
-                <button class="language-popup-btn language-popup-btn-cancel" onclick="closeLanguageModal()">Cancel</button>
+                <button class="language-popup-btn language-popup-btn-save" onclick="saveLanguageSettings()">저장</button>
+                <button class="language-popup-btn language-popup-btn-cancel" onclick="closeLanguageModal()">취소</button>
             </div>
         </div>
     </div>
+    
+    <!-- 번역 기록 저장 중 모달 -->
+    <div class="modal-overlay" id="savingModal" style="display: none;">
+        <div class="saving-modal-content">
+            <div class="saving-modal-body">
+                <img src="점 3개.gif" alt="Loading" class="saving-spinner-img">
+                <div class="saving-text">번역 기록을 저장 중입니다...</div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </body>
 </html>

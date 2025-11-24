@@ -117,7 +117,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 30px 15px;
+    padding: 30px 10px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -128,8 +128,31 @@ body {
     gap: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+/* 닫힌 언어 박스 인디케이터 컨테이너 */
+.closed-lang-indicators-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    order: -1;
+    flex-shrink: 0;
+}
+
+/* app_header의 오른쪽 버튼 그룹 */
+.app_header > .lang {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-left: auto;
+}
+
+.app_header > button {
+    margin-left: 0;
 }
 
 .room-code-display-inline {
@@ -250,7 +273,7 @@ body {
     grid-template-rows: 1fr 0.5fr;
     gap: 20px;
     width: 100%;
-    max-width: 1800px;
+    max-width: 2200px;
     margin: 0 auto;
     height: 600px;
     flex: 0 0 600px;
@@ -384,8 +407,8 @@ body {
 .caption-close-btn {
     width: 28px;
     height: 28px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(100, 100, 100, 0.8);
+    border: 1px solid rgba(80, 80, 80, 0.9);
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -399,23 +422,24 @@ body {
 }
 
 .caption-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(80, 80, 80, 0.9);
+    border-color: rgba(60, 60, 60, 1);
     transform: scale(1.1);
 }
 
 .caption-close-icon {
     line-height: 1;
     user-select: none;
-    font-weight: 300;
+    font-weight: 500;
+    color: #fff;
 }
 
 /* 열림 버튼 (Translated 왼쪽) */
 .caption-open-btn {
     width: 28px;
     height: 28px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(100, 100, 100, 0.8);
+    border: 1px solid rgba(80, 80, 80, 0.9);
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -429,15 +453,16 @@ body {
 }
 
 .caption-open-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(80, 80, 80, 0.9);
+    border-color: rgba(60, 60, 60, 1);
     transform: scale(1.1);
 }
 
 .caption-open-icon {
     line-height: 1;
     user-select: none;
-    font-weight: normal;
+    font-weight: 500;
+    color: #fff;
 }
 
 /* 접힌 상태 */
@@ -574,6 +599,8 @@ body {
     flex-direction: row !important;
     gap: 10px;
     align-items: stretch;
+    padding: 0 10px;
+    position: relative;
 }
 
 /* 언어별 구분 영역 */
@@ -586,18 +613,97 @@ body {
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.5);
     overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.translated-lang-section.hidden {
+    display: none;
 }
 
 .translated-lang-header {
     padding: 8px 12px;
     background-color: rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 }
 
 .translated-lang-title {
     font-size: 14px;
     font-weight: 600;
     color: #333;
+    flex: 1;
+}
+
+/* 언어 박스 닫기 버튼 */
+.lang-close-btn {
+    width: 24px;
+    height: 24px;
+    background: rgba(100, 100, 100, 0.8);
+    border: 1px solid rgba(80, 80, 80, 0.9);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    color: #fff;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.lang-close-btn:hover {
+    background: rgba(80, 80, 80, 0.9);
+    border-color: rgba(60, 60, 60, 1);
+    transform: scale(1.1);
+}
+
+.lang-close-icon {
+    line-height: 1;
+    user-select: none;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* 닫힌 언어 박스 작은 표시 (app_header 왼쪽 끝) - 언어 코드 버튼 스타일 */
+.closed-lang-indicator {
+    position: relative;
+    min-width: 50px;
+    height: 40px;
+    background: #4a5568;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.closed-lang-indicator:hover {
+    background: #3a4255;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.closed-lang-indicator-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.closed-lang-indicator-icon {
+    display: none;
 }
 
 .translated-lang-content {
@@ -631,16 +737,29 @@ body {
 }
 
 /* Real-time Caption 영역의 텍스트 - 박스 없이 바로 표시, 문장이 이어지도록 */
+#cp_cols_content_1 {
+    padding: 10px 1px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
 #cp_cols_content_1 .realtime-text-container {
-    padding: 12px;
+    padding: 20px;
     font-size: 14px;
     color: #000;
     line-height: 1.8;
-    background-color: transparent;
-    border: none;
+    background-color: #c8e4f0;
+    border: 2px solid #7bb8d1;
+    border-radius: 8px;
     box-shadow: none;
     white-space: normal;
     word-wrap: break-word;
+    min-height: 350px;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    flex: 1;
 }
 
 #cp_cols_content_1 .realtime-text-line {
@@ -652,13 +771,17 @@ body {
 }
 
 #cp_cols_1 {
-    background-color: #b7caeb;
+    background-color: #b3d9e6;
     border: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 #cp_cols_en {
-    background-color: #d4edda;
+    background-color: #a8d5b8;
     border: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -959,6 +1082,7 @@ body {
 
 .language-popup-header {
     margin-bottom: 24px;
+    text-align: center;
 }
 
 .language-icon-circle {
@@ -979,18 +1103,20 @@ body {
 }
 
 .language-popup-title {
-    margin: 0 0 8px 0;
+    margin: 0 auto 8px;
     color: #1a202c;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.5px;
+    text-align: center;
 }
 
 .language-popup-subtitle {
-    margin: 0;
+    margin: 0 auto;
     color: #64748b;
     font-size: 14px;
     font-weight: 400;
+    text-align: center;
 }
 
 .language-options {
@@ -1486,4 +1612,86 @@ body {
         right: 20px;
         left: 20px;
     }
+}
+
+/* 번역 기록 저장 중 모달 스타일 */
+#savingModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saving-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    min-width: 300px;
+    max-width: 400px;
+    width: auto;
+}
+
+.saving-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 0 8px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.saving-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border-radius: 50%;
+    animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.saving-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.saving-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.saving-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.saving-modal-body {
+    padding: 10px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.saving-spinner-img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.saving-text {
+    font-size: 12px;
+    color: #333;
 }

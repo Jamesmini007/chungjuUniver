@@ -140,17 +140,19 @@ function updateTranslatedLayout() {
     
     // 현재 선택된 언어 가져오기
     const selectedLanguages = [];
-    const subjectModalCheckboxes = document.querySelectorAll('input[name="subjectModal_speakerLanguageCd"]:checked');
-    const popupCheckboxes = document.querySelectorAll('input[name="popup_speakerLanguageCd"]:checked');
     
-    const checkboxes = subjectModalCheckboxes.length > 0 ? subjectModalCheckboxes : popupCheckboxes;
-    checkboxes.forEach(cb => {
-        selectedLanguages.push(cb.value);
-    });
-    
-    // state에서 가져오기 (체크박스가 없을 경우)
-    if (selectedLanguages.length === 0 && state.outputLanguages.length > 0) {
+    // state에 저장된 언어를 우선적으로 사용
+    if (state.outputLanguages.length > 0) {
         selectedLanguages.push(...state.outputLanguages);
+    } else {
+        // state가 없으면 체크박스에서 가져오기
+        const subjectModalCheckboxes = document.querySelectorAll('input[name="subjectModal_speakerLanguageCd"]:checked');
+        const popupCheckboxes = document.querySelectorAll('input[name="popup_speakerLanguageCd"]:checked');
+        
+        const checkboxes = subjectModalCheckboxes.length > 0 ? subjectModalCheckboxes : popupCheckboxes;
+        checkboxes.forEach(cb => {
+            selectedLanguages.push(cb.value);
+        });
     }
     
     // 기본값: 영어
@@ -166,6 +168,20 @@ function updateTranslatedLayout() {
         'LANGUAGE::VIETNAMESE': 'Tiếng Việt'
     };
     
+    // 기존 번역 내용 백업 (각 언어별로)
+    const existingContent = {};
+    const existingSections = container.querySelectorAll('.translated-lang-section');
+    existingSections.forEach(section => {
+        const lang = section.getAttribute('data-language');
+        const langContent = section.querySelector('.translated-lang-content');
+        if (langContent) {
+            const textContainer = langContent.querySelector('.translated-text-container');
+            if (textContainer) {
+                existingContent[lang] = textContainer.innerHTML;
+            }
+        }
+    });
+    
     // 기존 내용 제거
     container.innerHTML = '';
     
@@ -180,6 +196,9 @@ function updateTranslatedLayout() {
         langSection.innerHTML = `
             <div class="translated-lang-header">
                 <span class="translated-lang-title">${langName}</span>
+                <button class="lang-close-btn" onclick="closeLanguageBox('${lang}', ${index})" title="닫기">
+                    <span class="lang-close-icon">×</span>
+                </button>
             </div>
             <div class="translated-lang-content" id="translated-lang-content-${index}">
                 <!-- 번역 내용이 여기에 표시됩니다 -->
@@ -187,6 +206,48 @@ function updateTranslatedLayout() {
         `;
         
         container.appendChild(langSection);
+        
+        // 기존 번역 내용 복원
+        if (existingContent[lang]) {
+            const langContent = langSection.querySelector('.translated-lang-content');
+            if (langContent) {
+                const textContainer = document.createElement('div');
+                textContainer.className = 'translated-text-container';
+                textContainer.innerHTML = existingContent[lang];
+                langContent.appendChild(textContainer);
+                
+                // 스크롤을 맨 아래로
+                langContent.scrollTop = langContent.scrollHeight;
+            }
+        }
+    });
+    
+    // 닫기 버튼 상태 업데이트
+    updateCloseButtonsState();
+}
+
+// 닫기 버튼 상태 업데이트 함수 (마지막 하나일 때 비활성화)
+function updateCloseButtonsState() {
+    const container = document.getElementById('translatedContentContainer');
+    if (!container) return;
+    
+    const visibleSections = container.querySelectorAll('.translated-lang-section:not(.hidden)');
+    const isLastOne = visibleSections.length <= 1;
+    
+    // 모든 닫기 버튼 상태 업데이트
+    visibleSections.forEach(section => {
+        const closeBtn = section.querySelector('.lang-close-btn');
+        if (closeBtn) {
+            if (isLastOne) {
+                closeBtn.disabled = true;
+                closeBtn.style.opacity = '0.5';
+                closeBtn.style.cursor = 'not-allowed';
+            } else {
+                closeBtn.disabled = false;
+                closeBtn.style.opacity = '1';
+                closeBtn.style.cursor = 'pointer';
+            }
+        }
     });
 }
 
@@ -351,26 +412,36 @@ function stopTranslation() {
     // STT 시뮬레이션 정지
     stopSTTSimulation();
     
-    // 번역 데이터 저장
-    saveTranslationData();
+    // 저장 중 모달 표시
+    showSavingModal();
+    
+    // 번역 데이터 저장 (비동기 처리)
+    setTimeout(() => {
+        // 마지막 문장을 번역 기록에 추가
+        if (state.translations.length > 0) {
+            const lastTranslation = state.translations[state.translations.length - 1];
+            if (!lastTranslation.addedToHistory) {
+                addTranslationToHistory(lastTranslation);
+                lastTranslation.addedToHistory = true;
+            }
+        }
+        
+        // 현재 번역 기록 업데이트
+        if (state.currentHistoryItem) {
+            updateCurrentHistoryItem();
+        }
+        
+        // 번역 데이터 저장
+        saveTranslationData();
+        
+        // 저장 완료 후 모달 닫기
+        setTimeout(() => {
+            hideSavingModal();
+        }, 500);
+    }, 500);
     
     // UI 업데이트
     updateButtonStates();
-    
-    
-    // 마지막 문장을 번역 기록에 추가
-    if (state.translations.length > 0) {
-        const lastTranslation = state.translations[state.translations.length - 1];
-        if (!lastTranslation.addedToHistory) {
-            addTranslationToHistory(lastTranslation);
-            lastTranslation.addedToHistory = true;
-        }
-    }
-    
-    // 현재 번역 기록 업데이트
-    if (state.currentHistoryItem) {
-        updateCurrentHistoryItem();
-    }
 }
 
 // 타이머 시작
@@ -664,6 +735,22 @@ function saveTranslationData() {
     renderHistory();
 }
 
+// 저장 중 모달 표시
+function showSavingModal() {
+    const savingModal = document.getElementById('savingModal');
+    if (savingModal) {
+        savingModal.style.display = 'flex';
+    }
+}
+
+// 저장 중 모달 숨기기
+function hideSavingModal() {
+    const savingModal = document.getElementById('savingModal');
+    if (savingModal) {
+        savingModal.style.display = 'none';
+    }
+}
+
 // Toast 알림 표시
 function showToast(message) {
     elements.toastMessage.textContent = message;
@@ -846,8 +933,16 @@ function saveSubjectAndLanguageSettings() {
         });
     }
     
+    // 강의 내용 백업 (언어 설정 변경 시 유지)
+    const realtimeContent = elements.realtimeCaption ? elements.realtimeCaption.innerHTML : '';
+    
     // Translated 박스 구분 영역 업데이트
     updateTranslatedLayout();
+    
+    // 강의 내용 복원 (언어 설정 변경 시 유지)
+    if (realtimeContent && elements.realtimeCaption) {
+        elements.realtimeCaption.innerHTML = realtimeContent;
+    }
     
     showToast('과목 및 언어 설정이 저장되었습니다.');
     hideSubjectModal();
@@ -915,8 +1010,16 @@ function saveLanguageSettings() {
         });
     }
     
+    // 강의 내용 백업 (언어 설정 변경 시 유지)
+    const realtimeContent = elements.realtimeCaption ? elements.realtimeCaption.innerHTML : '';
+    
     // Translated 박스 구분 영역 업데이트
     updateTranslatedLayout();
+    
+    // 강의 내용 복원 (언어 설정 변경 시 유지)
+    if (realtimeContent && elements.realtimeCaption) {
+        elements.realtimeCaption.innerHTML = realtimeContent;
+    }
     
     showToast('언어 설정이 저장되었습니다.');
     closeLanguageModal();
@@ -1251,5 +1354,101 @@ function formatDuration(ms) {
     } else {
         return `${seconds}초`;
     }
+}
+
+// 언어 박스 닫기 함수
+function closeLanguageBox(lang, index) {
+    const langSection = document.querySelector(`#translated-lang-${index}`);
+    if (!langSection) return;
+    
+    // 현재 보이는(닫히지 않은) 언어 박스 개수 확인
+    const translatedContainer = document.getElementById('translatedContentContainer');
+    if (translatedContainer) {
+        const visibleSections = translatedContainer.querySelectorAll('.translated-lang-section:not(.hidden)');
+        // 마지막 하나만 남았으면 닫기 방지
+        if (visibleSections.length <= 1) {
+            showToast('최소 하나의 언어 박스는 열려있어야 합니다.');
+            return;
+        }
+    }
+    
+    // 언어 코드 가져오기
+    const languageCodes = {
+        'LANGUAGE::ENGLISH': 'EN',
+        'LANGUAGE::CHINESE': 'ZH',
+        'LANGUAGE::JAPANESE': 'JA',
+        'LANGUAGE::VIETNAMESE': 'VI'
+    };
+    const langCode = languageCodes[lang] || lang;
+    
+    // 박스 숨기기
+    langSection.classList.add('hidden');
+    
+    // 닫힌 언어 박스 표시 생성 (app_header 맨 왼쪽)
+    const appHeader = document.querySelector('.app_header');
+    if (!appHeader) return;
+    
+    // 인디케이터 컨테이너 찾기 또는 생성
+    let indicatorContainer = appHeader.querySelector('.closed-lang-indicators-container');
+    if (!indicatorContainer) {
+        indicatorContainer = document.createElement('div');
+        indicatorContainer.className = 'closed-lang-indicators-container';
+        appHeader.insertBefore(indicatorContainer, appHeader.firstChild);
+    }
+    
+    // 기존 인디케이터가 있으면 제거
+    const existingIndicator = indicatorContainer.querySelector(`.closed-lang-indicator[data-lang-index="${index}"]`);
+    if (existingIndicator) {
+        existingIndicator.remove();
+    }
+    
+    // 새로운 인디케이터 생성
+    const indicator = document.createElement('div');
+    indicator.className = 'closed-lang-indicator';
+    indicator.setAttribute('data-lang-index', index);
+    indicator.setAttribute('data-language', lang);
+    indicator.innerHTML = `
+        <div class="closed-lang-indicator-title">${langCode}</div>
+    `;
+    
+    // 클릭 이벤트: 박스 다시 열기
+    indicator.addEventListener('click', () => {
+        openLanguageBox(lang, index);
+    });
+    
+    // 컨테이너에 추가
+    indicatorContainer.appendChild(indicator);
+    
+    // 닫기 버튼 상태 업데이트
+    updateCloseButtonsState();
+}
+
+// 언어 박스 열기 함수
+function openLanguageBox(lang, index) {
+    const langSection = document.querySelector(`#translated-lang-${index}`);
+    if (!langSection) return;
+    
+    // 박스 보이기
+    langSection.classList.remove('hidden');
+    
+    // 인디케이터 제거
+    const appHeader = document.querySelector('.app_header');
+    if (appHeader) {
+        const container = appHeader.querySelector('.closed-lang-indicators-container');
+        if (container) {
+            const indicator = container.querySelector(`.closed-lang-indicator[data-lang-index="${index}"]`);
+            if (indicator) {
+                indicator.remove();
+            }
+            
+            // 컨테이너가 비어있으면 제거
+            if (container.children.length === 0) {
+                container.remove();
+            }
+        }
+    }
+    
+    // 닫기 버튼 상태 업데이트
+    updateCloseButtonsState();
 }
 
